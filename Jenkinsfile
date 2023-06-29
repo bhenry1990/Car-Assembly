@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // sh 'rm -rf build'
-                bat 'rd /s /q "build"'
+                bat 'if exist "build" (rd /s /q "build")'
                 // sh 'mkdir build'
                 bat 'mkdir build'
                 // sh 'touch build/car.txt'
@@ -29,6 +29,7 @@ pipeline {
         stage('Publish') {
             steps {
                 archiveArtifacts artifacts: 'build/'
+                //Don't work in JDK11?
             }
         }
     }
